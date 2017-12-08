@@ -1,6 +1,6 @@
 import copy
 import numpy as np
-#import matplotlib.pyplot as plt
+import matplotlib.pyplot as plt
 import random
 
 state = [['R', 'B', 'R', 'B', 'R', 'B'], [], ['B'], [], [], [], []]
@@ -334,3 +334,5 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
         else:
             Ties = Ties + 1
     return [ABWins,QWins, Ties]
+
+playgame(randomPlayerMakeMove,randomPlayerMakeMove,True)
