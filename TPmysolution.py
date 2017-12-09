@@ -208,7 +208,7 @@ def epsilonGreedy(epsilon, Q, state, validMovesF):
 
 def makeQFunctionMove(state, color):
     validMovesOptions = validMoves(state)
-    Qs = np.array([Q.get(stateMoveTuple(state, m, 'B'), 0) for m in validMovesOptions])
+    Qs = np.array([Q.get(stateMoveTuple(state, m, color), 0) for m in validMovesOptions])
     moveToMake = validMovesOptions[ np.argmax(Qs) ]
     newState=makeMove(state, moveToMake, color)
     return newState
