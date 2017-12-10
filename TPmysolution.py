@@ -325,6 +325,7 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
     ABWins = 0;
     QWins = 0;
     Ties = 0;
+    AverageMoves = 0;
     for i in range(0,numTrials):
         [winner,moves]=playgame(algorithm1,algorithm2)
         if winner == 1:
@@ -333,6 +334,8 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
             QWins = QWins + 1
         else:
             Ties = Ties + 1
-    return [ABWins,QWins, Ties]
+        AverageMoves = AverageMoves + moves
+    AverageMoves = AverageMoves/numTrials
+    return [ABWins,QWins, Ties, AverageMoves]
 
 playgame(randomPlayerMakeMove,randomPlayerMakeMove,True)
