@@ -211,7 +211,7 @@ def makeQFunctionMove(state, color):
     with open('file', "rb") as file: 
         Q=pickle.load(file)
     validMovesOptions = validMoves(state)
-    Qs = np.array([Q.get(stateMoveTuple(state, m, 'B'), 0) for m in validMovesOptions])
+    Qs = np.array([Q.get(stateMoveTuple(state, m, color), 0) for m in validMovesOptions])
     moveToMake = validMovesOptions[ np.argmax(Qs) ]
     newState=makeMove(state, moveToMake, color)
     return newState
@@ -328,6 +328,7 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
     ABWins = 0;
     QWins = 0;
     Ties = 0;
+    AverageMoves = 0;
     for i in range(0,numTrials):
         [winner,moves]=playgame(algorithm1,algorithm2)
         if winner == 1:
@@ -336,7 +337,9 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
             QWins = QWins + 1
         else:
             Ties = Ties + 1
-    return [ABWins,QWins, Ties]
+        AverageMoves = AverageMoves + moves
+    AverageMoves = AverageMoves/numTrials
+    return [ABWins,QWins, Ties, AverageMoves]
 
 playgame(randomPlayerMakeMove,randomPlayerMakeMove,True)
 Q, stepsToGoal = trainQ(25000, 0.4, 0.9, validMoves, makeMove)
