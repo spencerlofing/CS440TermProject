@@ -208,7 +208,7 @@ def epsilonGreedy(epsilon, Q, state, validMovesF):
         return validMoves[ np.argmax(Qs) ]
 
 def makeQFunctionMove(state, color):
-    with open('file', "rb") as file: 
+    with open('QFile', "rb") as file: 
         Q=pickle.load(file)
     validMovesOptions = validMoves(state)
     Qs = np.array([Q.get(stateMoveTuple(state, m, color), 0) for m in validMovesOptions])
