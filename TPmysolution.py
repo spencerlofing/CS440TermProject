@@ -2,6 +2,7 @@ import copy
 import numpy as np
 import matplotlib.pyplot as plt
 import random
+import pickle
 
 state = [['R', 'B', 'R', 'B', 'R', 'B'], [], ['B'], [], [], [], []]
 
@@ -207,6 +208,8 @@ def epsilonGreedy(epsilon, Q, state, validMovesF):
         return validMoves[ np.argmax(Qs) ]
 
 def makeQFunctionMove(state, color):
+    with open('QFile', "rb") as file: 
+        Q=pickle.load(file)
     validMovesOptions = validMoves(state)
     Qs = np.array([Q.get(stateMoveTuple(state, m, color), 0) for m in validMovesOptions])
     moveToMake = validMovesOptions[ np.argmax(Qs) ]
@@ -339,3 +342,7 @@ def mutlipleTrials(algorithm1, algorithm2, numTrials):
     return [ABWins,QWins, Ties, AverageMoves]
 
 playgame(randomPlayerMakeMove,randomPlayerMakeMove,True)
+Q, stepsToGoal = trainQ(25000, 0.4, 0.9, validMoves, makeMove)
+
+with open('QFile', "wb") as file:
+    pickle.dump(Q, file)
